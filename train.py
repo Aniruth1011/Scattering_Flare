@@ -7,7 +7,6 @@ from utils.create_dataloader import training_dataloader
 from net.model import UNet
 from tqdm import tqdm 
 
-# Define hyperparameters
 batch_size = 16
 num_epochs = 10
 learning_rate = 0.001

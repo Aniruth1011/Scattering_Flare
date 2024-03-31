@@ -21,34 +21,27 @@ class UNet(nn.Module):
         self.outc = nn.Conv2d(64, output_channels, kernel_size=1)
 
     def forward(self, x):
-        # Encoder Level 0 (input)
+
         x_enc_lev_0 = self.inc(x)
 
-        # Encoder Level 1
         x_enc_lev_1 = self.enc_lev_1(x_enc_lev_0)
         print(x_enc_lev_1.shape)
         x_enc_lev_1 = self.transformer1(x_enc_lev_1)
 
-        # Encoder Level 2
         x_enc_lev_2 = self.enc_lev_2(x_enc_lev_1)
         x_enc_lev_2 = self.transformer2(x_enc_lev_2)
 
-        # Encoder Level 3
         x_enc_lev_3 = self.enc_lev_3(x_enc_lev_2)
         x_enc_lev_3 = self.transformer3(x_enc_lev_3)
 
-        # Decoder Level 3
         x_dec_lev_3 = self.dec_lev_3(x_enc_lev_3, x_enc_lev_2)
         x_dec_lev_3 = self.transformer4(x_dec_lev_3)
 
-        # Decoder Level 2
         x_dec_lev_2 = self.dec_lev_2(x_dec_lev_3, x_enc_lev_1)
         x_dec_lev_2 = self.transformer5(x_dec_lev_2)
 
-        # Decoder Level 1
         x_dec_lev_1 = self.dec_lev_1(x_dec_lev_2, x_enc_lev_0)
         x_dec_lev_1 = self.transformer6(x_dec_lev_1)
 
-        # Output
         x_out = self.outc(x_dec_lev_1)
         return x_out
