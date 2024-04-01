@@ -1,8 +1,8 @@
-from torch.utils.data import  Dataset
+from torch.utils.data import Dataset
 import os 
 import cv2 as cv
 from torchvision.transforms import ToTensor , Resize , Compose
-
+ 
 class ScatteringFlareDataset(Dataset):
 
     def __init__(self):
