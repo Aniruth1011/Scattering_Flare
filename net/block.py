@@ -3,6 +3,19 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torchvision.models as models
 
+class ResNetTanh(nn.Module):
+    def __init__(self, input_dim, pretrained=True):
+        super(ResNetTanh, self).__init__()
+        self.input_dim = input_dim
+        self.tanh = nn.Tanh()
+
+    def forward(self, x):
+
+        output = self.tanh(x)
+
+        return output
+
+
 class LensComponent(nn.Module):
     def __init__(self):
         super(LensComponent, self).__init__()
