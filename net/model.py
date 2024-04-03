@@ -1,7 +1,6 @@
 import torch
 import torch.nn as nn 
-from net.block import DoubleConv , Down , TransformerBlock , Up , ResNetTanh
-from net.block2 import CombinedAttention
+from net.block import DoubleConv , Down , TransformerBlock , Up , LensComponent
 from net.lens import LensBlock
 
 class UNet(nn.Module):
@@ -15,17 +14,17 @@ class UNet(nn.Module):
         self.enc_lev_3 = Down(256, 512)
         self.transformer3 = TransformerBlock(512)
 
-        self.lens3 =  ResNetTanh(256) # CombinedAttention(256)
+        self.lens3 =  LensComponent(256) # CombinedAttention(256)
 
         self.dec_lev_3 = Up(768, 256)
         self.transformer4 = TransformerBlock(256)
 
-        self.lens2 = ResNetTanh(128) # CombinedAttention(128)
+        self.lens2 = LensComponent(128) # CombinedAttention(128)
 
         self.dec_lev_2 = Up(384, 128)
         self.transformer5 = TransformerBlock(128)
     
-        self.lens1 = ResNetTanh(64) # CombinedAttention(64)
+        self.lens1 = LensComponent(64) # CombinedAttention(64)
 
         self.dec_lev_1 = Up(192, 64)
         self.transformer6 = TransformerBlock(64)

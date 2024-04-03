@@ -5,9 +5,9 @@ from torchvision.transforms import ToTensor , Resize , Compose
  
 class ScatteringFlareDataset(Dataset):
 
-    def __init__(self):
+    def __init__(self , data_path):
 
-        self.data_dir = 'data'
+        self.data_dir = data_path
 
         self.compound_flare_image_paths = [os.path.join(self.data_dir , 'Compound_Flare' , img) for img in os.listdir(os.path.join(self.data_dir , 'Compound_Flare'))]
         self.core_image_paths = [os.path.join(self.data_dir , 'Core' , img) for img in os.listdir(os.path.join(self.data_dir , 'Core'))]

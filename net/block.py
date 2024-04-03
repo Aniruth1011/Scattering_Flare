@@ -3,9 +3,9 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torchvision.models as models
 
-class ResNetTanh(nn.Module):
+class LensComponent(nn.Module):
     def __init__(self, input_dim, pretrained=True):
-        super(ResNetTanh, self).__init__()
+        super(LensComponent, self).__init__()
         self.input_dim = input_dim
         self.tanh = nn.Tanh()
 
@@ -16,22 +16,6 @@ class ResNetTanh(nn.Module):
         return output
 
 
-class LensComponent(nn.Module):
-    def __init__(self):
-        super(LensComponent, self).__init__()
-        self.resnet = models.resnet18(pretrained=True)
-        for param in self.resnet.parameters():
-            param.requires_grad = False
-        self.conv = nn.Conv2d(512, 3, kernel_size=1)
-        self.flatten = nn.Flatten()
-        self.tanh = nn.Tanh()
-
-    def forward(self, x_transformer):
-        conv = self.conv(x_transformer)
-        features_resnet = self.resnet(conv)
-        flattened_features = self.flatten(features_resnet)
-        tanh_output = self.tanh(flattened_features)
-        return tanh_output
 
 class ChannelAttention(nn.Module):
     def __init__(self, in_planes, ratio=16):
