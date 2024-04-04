@@ -7,17 +7,20 @@ class LensComponent(nn.Module):
     def __init__(self, input_dim, pretrained=True):
         super(LensComponent, self).__init__()
         self.input_dim = input_dim
-        self.weight = nn.Parameter(torch.Tensor(input_dim))  # Define a learnable weight parameter
-        nn.init.normal_(self.weight)  # Initialize the weight parameter with normal distribution
-        self.conv = nn.Conv2d(input_dim, input_dim, kernel_size=3, padding=1)  # Create a convolutional layer
+        self.weight = nn.Parameter(torch.Tensor(input_dim)) 
+        nn.init.normal_(self.weight) 
+        self.conv1 = nn.Conv2d(input_dim, input_dim, kernel_size=3, padding=1) 
+        self.conv2 = nn.Conv2d(input_dim , input_dim , kernel_size=3, padding=1 )
         self.tanh = nn.Tanh()
 
     def forward(self, x):
         # Apply convolutional layer
-        conv_output = self.conv(x)
+        conv_output_1 = self.conv1(x)
+
+        conv_output_2 = self.conv2(conv_output_1)
         
         # Apply the weight parameter to the convolutional output
-        weighted_output = conv_output * self.weight.view(1, self.input_dim, 1, 1)
+        weighted_output = conv_output_2 * self.weight.view(1, self.input_dim, 1, 1)
         
         # Apply activation function
         output = self.tanh(weighted_output)
