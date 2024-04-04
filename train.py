@@ -11,7 +11,7 @@ from options import options
 
 
 # DataLoader
-train_dataset , train_dataloader = training_dataloader(options.batch_size, options.no_of_workers, options.train_dataset_path)
+train_dataset , train_dataloader = training_dataloader(options.batch_size, options.no_of_workers, options.train_dataset_path , options.image_size)
 
 # Model
 model = UNet().to(options.device)

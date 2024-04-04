@@ -24,6 +24,7 @@ class Options:
 
         # DataLoader parameters
         self.parser.add_argument('--train_dataset_path', type=str, default='data', help='Path to training dataset')
+        self.parser.add_argument('--image_size' , type = int , default = 256 , help = 'Size to which image gets resized')
 
     def parse(self):
         return self.parser.parse_args()

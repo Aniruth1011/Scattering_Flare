@@ -5,7 +5,7 @@ from torchvision.transforms import ToTensor , Resize , Compose
  
 class ScatteringFlareDataset(Dataset):
 
-    def __init__(self , data_path):
+    def __init__(self , data_path , image_size):
 
         self.data_dir = data_path
 
@@ -18,7 +18,7 @@ class ScatteringFlareDataset(Dataset):
 
         self.output_image_paths = [os.path.join(self.data_dir , 'Light_Source' , img) for img in os.listdir(os.path.join(self.data_dir , 'Light_Source'))]
 
-        self.transform = Compose([ToTensor() , Resize(256)])
+        self.transform = Compose([ToTensor() , Resize(image_size)])
 
     def __len__(self):
 
